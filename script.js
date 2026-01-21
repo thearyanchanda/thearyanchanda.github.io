@@ -1,23 +1,23 @@
 const pageFlip = new St.PageFlip(
   document.getElementById("flipbook"),
   {
-    width: 600,
-    height: 800,
-
     size: "stretch",
+    width: 400,
+    height: 600,
+
     minWidth: 300,
-    maxWidth: 1200,
+    maxWidth: 2000,
     minHeight: 400,
-    maxHeight: 1600,
+    maxHeight: 3000,
 
-    maxShadowOpacity: 0,   // removes page shadow
-    drawShadow: false,     // fully disable shadows
+    usePortrait: true,
+    autoSize: true,
 
-    showCover: true,
+    drawShadow: false,
+    maxShadowOpacity: 0,
+
     mobileScrollSupport: false,
-
-    usePortrait: true,    // single page on mobile
-    autoSize: true
+    showCover: true
   }
 );
 
@@ -30,4 +30,5 @@ function setVH() {
 
 setVH();
 window.addEventListener("resize", setVH);
+
 
