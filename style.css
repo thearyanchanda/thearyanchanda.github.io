@@ -1,0 +1,29 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+}
+
+/* wrapper handles centering */
+#flipbook-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* book container */
+#flipbook {
+  width: 90vw;
+  height: 90vh;
+}
+
+/* individual pages */
+.page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
