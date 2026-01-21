@@ -31,4 +31,7 @@ function setVH() {
 setVH();
 window.addEventListener("resize", setVH);
 
-
+window.addEventListener("load", () => {
+  pageFlip.update();
+  setTimeout(() => pageFlip.update(), 300);
+});
