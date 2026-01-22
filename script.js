@@ -1,31 +1,61 @@
 const bookEl = document.getElementById("flipbook");
 
-const pageFlip = new St.PageFlip(bookEl, {
-  width: 600,
-  height: 800,           // magazine ratio
+function getBookSize() {
+  const margin = 32; // breathing room so edges never clip
 
-  size: "fixed",         // 🔑 REQUIRED
-  autoSize: true,        // 🔑 scale to viewport safely
+  const vw = window.innerWidth - margin;
+  const vh = window.innerHeight - margin;
 
-  showCover: true,       // cover only at start
-  usePortrait: true,     // single-page on mobile
+  const aspect = 600 / 800; // width / height
 
-  flippingTime: 700,
+  let width = vw;
+  let height = vw / aspect;
 
-  drawShadow: false,
-  maxShadowOpacity: 0,
+  if (height > vh) {
+    height = vh;
+    width = vh * aspect;
+  }
 
-  mobileScrollSupport: false
-});
+  return {
+    width: Math.floor(width),
+    height: Math.floor(height)
+  };
+}
 
-window.addEventListener("load", () => {
+let pageFlip;
+
+function initBook() {
+  const { width, height } = getBookSize();
+
+  if (pageFlip) {
+    pageFlip.destroy();
+  }
+
+  pageFlip = new St.PageFlip(bookEl, {
+    width: 600,
+    height: 800,
+
+    size: "fixed",
+    autoSize: false, // 🔑 we control sizing now
+
+    maxWidth: width,
+    maxHeight: height,
+
+    showCover: true,
+    usePortrait: true,
+
+    flippingTime: 700,
+
+    drawShadow: false,
+    maxShadowOpacity: 0,
+
+    mobileScrollSupport: false
+  });
+
   pageFlip.loadFromHTML(
     document.querySelectorAll("#flipbook .page")
   );
+}
 
-  pageFlip.update();
-});
-
-window.addEventListener("resize", () => {
-  pageFlip.update();
-});
+window.addEventListener("load", initBook);
+window.addEventListener("resize", initBook);
