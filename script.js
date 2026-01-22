@@ -2,13 +2,13 @@ const bookEl = document.getElementById("flipbook");
 
 const pageFlip = new St.PageFlip(bookEl, {
   width: 600,
-  height: 800,           // magazine aspect ratio
+  height: 800,           // magazine ratio
 
-  size: "stretch",      // 🔑 STPageFlip controls scaling
-  autoSize: true,       // 🔑 fit inside viewport safely
+  size: "fixed",         // 🔑 REQUIRED
+  autoSize: true,        // 🔑 scale to viewport safely
 
-  showCover: true,      // cover only on start
-  usePortrait: true,    // single-page on mobile
+  showCover: true,       // cover only at start
+  usePortrait: true,     // single-page on mobile
 
   flippingTime: 700,
 
@@ -26,7 +26,6 @@ window.addEventListener("load", () => {
   pageFlip.update();
 });
 
-/* Optional */
 window.addEventListener("resize", () => {
   pageFlip.update();
 });
