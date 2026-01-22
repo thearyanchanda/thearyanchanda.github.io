@@ -1,12 +1,16 @@
 const bookEl = document.getElementById("flipbook");
 
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
 function getBookSize() {
-  const margin = 32; // breathing room so edges never clip
+  const margin = 32;
 
   const vw = window.innerWidth - margin;
   const vh = window.innerHeight - margin;
 
-  const aspect = 600 / 800; // width / height
+  const aspect = 600 / 800;
 
   let width = vw;
   let height = vw / aspect;
@@ -36,13 +40,15 @@ function initBook() {
     height: 800,
 
     size: "fixed",
-    autoSize: false, // 🔑 we control sizing now
+    autoSize: false,
 
     maxWidth: width,
     maxHeight: height,
 
     showCover: true,
-    usePortrait: true,
+
+    // ✅ THIS IS THE FIX
+    usePortrait: isMobile(),
 
     flippingTime: 700,
 
