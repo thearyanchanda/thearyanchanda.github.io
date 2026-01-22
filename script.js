@@ -1,37 +1,32 @@
-const pageFlip = new St.PageFlip(
-  document.getElementById("flipbook"),
-  {
-    size: "stretch",
-    width: 400,
-    height: 600,
+const bookEl = document.getElementById("flipbook");
 
-    minWidth: 300,
-    maxWidth: 2000,
-    minHeight: 400,
-    maxHeight: 3000,
+/* --- INIT PAGEFLIP --- */
+const pageFlip = new St.PageFlip(bookEl, {
+  width: 550,          // single page width
+  height: 733,         // single page height (3:4 ratio)
 
-    usePortrait: true,
-    autoSize: true,
+  showCover: true,
+  usePortrait: true,   // THIS enables single-page on mobile
+  autoSize: true,
 
-    drawShadow: false,
-    maxShadowOpacity: 0,
+  maxShadowOpacity: 0,
+  drawShadow: false,
 
-    mobileScrollSupport: false,
-    showCover: true
-  }
-);
+  mobileScrollSupport: false
+});
 
-pageFlip.loadFromHTML(document.querySelectorAll(".page"));
-
-function setVH() {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty("--vh", `${vh}px`);
-}
-
-setVH();
-window.addEventListener("resize", setVH);
-
+/* --- LOAD AFTER EVERYTHING IS READY --- */
 window.addEventListener("load", () => {
+  pageFlip.loadFromHTML(
+    document.querySelectorAll("#flipbook .page")
+  );
+
+  // force layout + animation engine
   pageFlip.update();
   setTimeout(() => pageFlip.update(), 300);
+});
+
+/* --- DEBUG (remove later) --- */
+pageFlip.on("flip", (e) => {
+  console.log("Page:", e.data);
 });
