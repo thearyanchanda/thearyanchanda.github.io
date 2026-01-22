@@ -15,7 +15,7 @@ html, body {
 /* ---------- CENTER ONLY ---------- */
 #flipbook-wrapper {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 
   display: flex;
   justify-content: center;
@@ -46,3 +46,4 @@ html, body {
 .stf__wrapper {
   transform: none !important;
 }
+
