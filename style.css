@@ -1,46 +1,31 @@
-* {
-  box-sizing: border-box;
-}
+const bookEl = document.getElementById("flipbook");
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background: #111;
-  overflow: hidden;
-}
+const pageFlip = new St.PageFlip(bookEl, {
+  width: 600,
+  height: 800,           // magazine ratio (3:4)
 
-/* Center only — NEVER scale */
-#flipbook-wrapper {
-  width: 100vw;
-  height: 100vh;
+  size: "fixed",         // REQUIRED for magazine curl
+  autoSize: true,        // REQUIRED for mobile portrait detection
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  showCover: true,       // cover alone at start
+  usePortrait: true,     // single page on mobile
 
-/* PageFlip controls size */
-#flipbook {
-  width: auto;
-  height: auto;
-}
+  flippingTime: 700,
 
-/* Pages */
-.page {
-  background: #fff;
-}
+  drawShadow: false,
+  maxShadowOpacity: 0,
 
-.page img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* never crop */
-  pointer-events: none;
-}
+  mobileScrollSupport: false
+});
 
-/* Kill book “lift” effect */
-.stf__parent,
-.stf__wrapper {
-  transform: none !important;
-}
+window.addEventListener("load", () => {
+  pageFlip.loadFromHTML(
+    document.querySelectorAll("#flipbook .page")
+  );
+
+  pageFlip.update();
+});
+
+window.addEventListener("resize", () => {
+  pageFlip.update();
+});
