@@ -1,31 +1,49 @@
-const bookEl = document.getElementById("flipbook");
+/* ---------- RESET ---------- */
+* {
+  box-sizing: border-box;
+}
 
-const pageFlip = new St.PageFlip(bookEl, {
-  width: 600,
-  height: 800,           // magazine ratio (3:4)
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  overflow: hidden;
+}
 
-  size: "fixed",         // REQUIRED for magazine curl
-  autoSize: true,        // REQUIRED for mobile portrait detection
+/* ---------- CENTERING ONLY ---------- */
+#flipbook-wrapper {
+  width: 100vw;
+  height: 100vh;
 
-  showCover: true,       // cover alone at start
-  usePortrait: true,     // single page on mobile
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  flippingTime: 700,
+/* ---------- BOOK CONTAINER ---------- */
+#flipbook {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+}
 
-  drawShadow: false,
-  maxShadowOpacity: 0,
+/* ---------- PAGES ---------- */
+.page {
+  background: #fff;
+}
 
-  mobileScrollSupport: false
-});
+.page img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ✅ NEVER CROP */
+  pointer-events: none;
+}
 
-window.addEventListener("load", () => {
-  pageFlip.loadFromHTML(
-    document.querySelectorAll("#flipbook .page")
-  );
-
-  pageFlip.update();
-});
-
-window.addEventListener("resize", () => {
-  pageFlip.update();
-});
+/* ---------- REMOVE LIFTING ---------- */
+.stf__parent,
+.stf__wrapper {
+  transform: none !important;
+}
