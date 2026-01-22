@@ -1,32 +1,34 @@
 const bookEl = document.getElementById("flipbook");
 
-/* --- INIT PAGEFLIP --- */
 const pageFlip = new St.PageFlip(bookEl, {
-  width: 550,          // single page width
-  height: 733,         // single page height (3:4 ratio)
+  width: 600,
+  height: 800, // 3:4 magazine ratio
 
-  showCover: true,
-  usePortrait: true,   // THIS enables single-page on mobile
+  size: "fixed",        // IMPORTANT: prevents stretch distortion
   autoSize: true,
 
-  maxShadowOpacity: 0,
+  showCover: false,     // COVER FLIPS LIKE NORMAL PAGE
+  usePortrait: true,    // single-page on mobile
+
+  flippingTime: 700,
+
   drawShadow: false,
+  maxShadowOpacity: 0,
 
   mobileScrollSupport: false
 });
 
-/* --- LOAD AFTER EVERYTHING IS READY --- */
 window.addEventListener("load", () => {
   pageFlip.loadFromHTML(
     document.querySelectorAll("#flipbook .page")
   );
 
-  // force layout + animation engine
+  // force correct sizing + animation engine
   pageFlip.update();
   setTimeout(() => pageFlip.update(), 300);
 });
 
-/* --- DEBUG (remove later) --- */
+/* Optional debug */
 pageFlip.on("flip", (e) => {
-  console.log("Page:", e.data);
+  console.log("Flipped to page:", e.data);
 });
